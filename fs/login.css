@@ -1,0 +1,38 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box
+}
+
+
+.admin-container{
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  border-radius: 5px;
+  width: 360px;
+}
+
+.imageContainer{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  width: 25%;
+}
+
+.password-container{
+  position: relative;
+}
+
+.fa-eye-slash{
+  position: absolute;
+  top: 28%;
+  right: 5%;
+  cursor: pointer
+}
+
+.fa-eye{
+  position: absolute;
+  top: 28%;
+  right: 5%;
+  cursor: pointer
+}

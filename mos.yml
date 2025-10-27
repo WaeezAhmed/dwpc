@@ -1,0 +1,273 @@
+author: mongoose-os
+description: A Mongoose OS app skeleton
+version: 1.0
+
+libs_version: ${mos.version}
+modules_version: ${mos.version}
+mongoose_os_version: ${mos.version}
+
+# Optional. List of tags for online search.
+tags:
+  - c
+# List of files / directories with C sources. No slashes at the end of dir names.
+sources:
+  - src
+  # Including required sensor and driver libraries
+  - drivers
+  - drivers/PCA9543A
+  - drivers/VL53L8CX
+  - drivers/KTD202X
+  - drivers/UART
+  - drivers/NETWORK
+  - drivers/WEBSOCKET
+  - drivers/RPC
+  - drivers/BUZZER
+  - ppcl5
+# List of dirs. Files from these dirs will be copied to the device filesystem
+filesystem:
+  - fs
+# Custom configuration entries, settable via "device configuration"
+build_vars:
+  ESP_IDF_SDKCONFIG_OPTS: >
+    ${build_vars.ESP_IDF_SDKCONFIG_OPTS}
+    CONFIG_ESPTOOLPY_FLASHSIZE_4MB=
+    CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y
+    CONFIG_ESPTOOLPY_FLASHSIZE="8MB"
+  FLASH_SIZE: 8M
+# cdefs mention your compilation flags
+cdefs:
+    # DEBUG: 1
+
+# Custom configuration entries, settable via "device configuration"
+# Below is a custom firmware configuration example.
+# Uncomment and modify according to your needs:
+
+config_schema:
+
+  - ["i2c.enable", true]
+  - ["i2c.freq", 400000]
+  - ["i2c.sda_gpio", 33]
+  - ["i2c.scl_gpio", 32]
+
+  - ["wifi.sta.enable", false]
+  - ["wifi.sta.ssid", "FTDEMO"]
+  - ["wifi.sta.pass", "1234567890"]
+  - ["wifi.sta.ip", ""]
+  - ["wifi.sta.netmask", ""]
+  - ["wifi.sta.gw", ""]
+  - ["wifi.ap.enable", true]
+  - ["wifi.ap.ssid", "DWPC_V2.8"]
+  - ["wifi.ap.pass", "12345678"]
+  - ["wifi.ap.ip", "192.168.4.1"]
+  - ["wifi.ap.gw", "192.168.4.1"]
+  - ["wifi.ap.dhcp_start", "192.168.4.2"]
+  - ["wifi.ap.dhcp_end", "192.168.4.10"]
+  - ["wifi.ap.netmask", "255.255.255.0"]
+  - ["wifi.ap.channel", 6]
+  - ["wifi.ap.trigger_on_gpio", -1]
+  - ["wifi.ap.max_connections", 5]
+
+  # Config schema for MQTT parameters
+  - ["mqtt.enable", true]
+  - ["mqtt.server", "test.mosquitto.org"]
+  - ["mqtt.pub", "s", "/dwpc/1", { title: "Publish topic" }]
+  - ["mqtt.sub", "s", "", { title: "Subscription topic" }]
+  - ["mqtt.device_health","s","/health/1",{title: "health topic"}]
+  - ["mqtt.user", "s","", {title: "User name"}]
+  - ["mqtt.pass", "s","", {title: "Password"}]
+  - ["mqtt.keep_alive", 60]
+  - ["mqtt.clean_session", true]
+  - ["mqtt.max_qos", 0]
+  - ["mqtt.ca", ""]
+  - ["mqtt.ssl_ca_cert", ""]
+  - ["mqtt.status","s","",{title: "Mqtt port"}]
+  - ["mqtt.will_topic","s","",{title: "will topic"}]
+  - ["mqtt.client_id", "s", "", {title: "ClientID t send to the broker. Defaults to device.id."}]
+  - ["mqtt.ssl_cert", "s", "", {title: "Client certificate to present to the server"}]
+
+    # Config schema for MQTT-2 parameters
+  - ["mqtt1.enable", true]
+  - ["mqtt1.server", ""]
+  - ["mqtt1.pub", "s", "", { title: "Publish topic" }]
+  - ["mqtt.sub", "s", "", { title: "Subscription topic" }]
+  - ["mqtt1.device_health","s","",{title: "health topic"}]
+  - ["mqtt1.user", "s","", {title: "User name"}]
+  - ["mqtt1.pass", "s","", {title: "Password"}]
+  - ["mqtt1.keep_alive", 60]
+  - ["mqtt1.clean_session", true]
+  - ["mqtt1.max_qos", 0]
+  - ["mqtt1.ca", ""]
+  - ["mqtt1.ssl_ca_cert", ""]
+  - ["mqtt1.status","s","",{title: "Mqtt connection Status"}]
+  - ["mqtt1.will_topic","s","",{title: "will topic"}]
+  - ["mqtt1.client_id", "s", "", {title: "ClientID t send to the broker. Defaults to device.id."}]
+  - ["mqtt1.ssl_cert", "s", "", {title: "Client certificate to present to the server"}]
+
+  # Config schema for NTP Server Parameters
+  - ["sntp.server", "time.google.com"]
+  - ["sntp.retry_min", 1]
+  - ["sntp.retry_max", 30]
+  - ["sntp.update_interval", 7200]
+
+  - ["eth","o",{title:"Ethernet parameters"}]
+  - ["eth.enable","b", true ,{title: "Enable Ethernet interface "}]
+  - ["eth.clk_mode", 3]
+  - ["eth.ip", "s", { title: "Static IP Address" }]
+  - ["eth.netmask", "s", { title: "Static Netmask" }]
+  - ["eth.gw", "s", { title: "Static Default Gateway" }]
+
+  #   # Config schema for admin
+  - ["admin", "o", { title: "Admin parameters" }]
+  - ["admin.variant", "s", "MQTT",{title : admin variant MQTT/ZIGBEE}]
+  - ["admin.version", "s", "db-occusenz-pc-l8-v3.10-23062025-dc",{title : Firmware Version}]
+
+
+# dwpc configuration
+  - ["dwpc", "o", { title: "DWPC parameters" }]
+  - ["dwpc.interval", "i", 30, { title: "Interval value in sec" }]
+  - ["dwpc.function_mode", "i", 2, { title: "Function mode" }] 
+  - ["dwpc.periodic_reset", "i", 45, { title: "Periodic Reset in min" }]
+  - ["dwpc.capacity", "i", 0, { title: "Room Capacity" }]
+  - ["dwpc.sensor_freq", "i", 50, {title: "Sensor Frequency(HZ)"}]
+  - ["dwpc.resolution", "i", 16, { title: "set resolution 4x4 or 8x8" }]
+  - ["dwpc.min_floor_distance","i",1500,{title: "Min floor distance"}]
+  - ["dwpc.max_distance_delta","i",300,{title: "max distance delta"}]
+  - ["dwpc.TotalSamplesForRangeCalibration","i",500,{title: "max distance delta"}]
+  - ["dwpc.validSamplesForRangeCalibration","i",450,{title: "max distance delta"}]
+  - ["dwpc.numberOfTargetPerZone","i",1,{title: "number of target per zone"}]
+  - ["dwpc.min_consecutive_count","i",4,{title: "Min consecutive count"}]
+  - ["dwpc.min_signal","i",1,{title: "Min signal"}]
+  - ["dwpc.threshold","i",200,{title: "Threshold"}]
+  - ["dwpc.direction","i",0,{title: "sensor/event direction entry/exit 0:DEFAULT,1:CHANGE"}]
+  - ["dwpc.enable_low_confidence_target","i",0,{title: "Partial target status 1:Enable,0:Disable"}]
+  - ["dwpc.enter_or_exit_middle_ok",i,0,{title: "Enter or exit middle Ok 0:DISABLE, 1:ENABLE"}]
+  - ["dwpc.person_count_threshold","i",1,{title: "Enable/disable 2person count"}]
+
+#calibration Parameters 
+  - ["dwpc.reflectance_percent","i",50,{title: "reflectance_percent"}]
+  - ["dwpc.nb_samples","i",8,{title: "Nb of samples used for calibration"}]
+  - ["dwpc.distance_mm","i",2000,{title: Target distance in mm}]
+# service parameters 
+  - ["service","o",{title: "Services"}]
+  - ["service.xtalkcalibration_status","s","Not started",{title: "xtalkcalibration status"}]
+  - ["service.livestream_toggle_status","s","Not started",{title: "Live stream status"}]
+  - ["service.thresholdCalibration_status","s","Not started",{title: "thresholdCalibration status"}]
+
+  # Diagnostic parameters 
+  - ["diagnostic", "o", { title: "Diagnostic Parameters" }]
+  - ["diagnostic.topic", "s", "/diagnostics", { title: "Diagnostic Topic" }]
+  - ["debug.udp_log_addr", "192.168.4.2:1993"]
+
+# # pathzone configuration 
+  - ["pathzone","o",{title: "Pathzone Parameters"}]
+  - ["pathzone.index0","i",2,{title: "pathzone index0 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index1","i",2,{title: "pathzone index1 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index2","i",2,{title: "pathzone index2 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index3","i",2,{title: "pathzone index3 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index4","i",2,{title: "pathzone index4 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index5","i",2,{title: "pathzone index5 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index6","i",2,{title: "pathzone index6 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index7","i",2,{title: "pathzone index7 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index8","i",2,{title: "pathzone index8 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index9","i",2,{title: "pathzone index9 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index10","i",2,{title: "pathzone index10 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index11","i",2,{title: "pathzone index11 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index12","i",2,{title: "pathzone index12 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index13","i",2,{title: "pathzone index13 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index14","i",2,{title: "pathzone index14 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  - ["pathzone.index15","i",2,{title: "pathzone index15 DISCARD:3,NEEDED:2,OPTIONAL:1"}]
+  
+  # InnerOuterZones configuration 
+  - ["InnerOuterZone","o",{title: "Pathzone Parameters"}]
+  - ["InnerOuterZone.index0","i",3,{title: "InnerOuterZone index0 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index1","i",3,{title: "InnerOuterZone index1 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index2","i",1,{title: "InnerOuterZone index2 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index3","i",1,{title: "InnerOuterZone index3 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index4","i",3,{title: "InnerOuterZone index4 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index5","i",3,{title: "InnerOuterZone index5 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index6","i",1,{title: "InnerOuterZone index6 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index7","i",1,{title: "InnerOuterZone index7 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index8","i",3,{title: "InnerOuterZone index8 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index9","i",3,{title: "InnerOuterZone index9 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index10","i",1,{title: "InnerOuterZone index10 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index11","i",1,{title: "InnerOuterZone index11 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index12","i",3,{title: "InnerOuterZone index12 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index13","i",3,{title: "InnerOuterZone index13 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index14","i",1,{title: "InnerOuterZone index14 INNER:3,MIDDLE:2,OUTER:1"}]
+  - ["InnerOuterZone.index15","i",1,{title: "InnerOuterZone index15 INNER:3,MIDDLE:2,OUTER:1"}]
+
+# Distance Threshold configuration 
+  - ["distanceThreshold","o",{title: "distanceThreshold Parameters"}]
+  - ["distanceThreshold.index0","i",1500,{title: "distanceThreshold index0 "}]
+  - ["distanceThreshold.index1","i",1500,{title: "distanceThreshold index1 "}]
+  - ["distanceThreshold.index2","i",1500,{title: "distanceThreshold index2 "}]
+  - ["distanceThreshold.index3","i",1500,{title: "distanceThreshold index3 "}]
+  - ["distanceThreshold.index4","i",1500,{title: "distanceThreshold index4 "}]
+  - ["distanceThreshold.index5","i",1500,{title: "distanceThreshold index5 "}]
+  - ["distanceThreshold.index6","i",1500,{title: "distanceThreshold index6 "}]
+  - ["distanceThreshold.index7","i",1500,{title: "distanceThreshold index7 "}]
+  - ["distanceThreshold.index8","i",1500,{title: "distanceThreshold index8 "}]
+  - ["distanceThreshold.index9","i",1500,{title: "distanceThreshold index9 "}]
+  - ["distanceThreshold.index10","i",1500,{title: "distanceThreshold index10 "}]
+  - ["distanceThreshold.index11","i",1500,{title: "distanceThreshold index11 "}]
+  - ["distanceThreshold.index12","i",1500,{title: "distanceThreshold index12 "}]
+  - ["distanceThreshold.index13","i",1500,{title: "distanceThreshold index13 "}]
+  - ["distanceThreshold.index14","i",1500,{title: "distanceThreshold index14 "}]
+  - ["distanceThreshold.index15","i",1500,{title: "distanceThreshold index15 "}]
+
+# Min distance configuration 
+  - ["mindistance","o",{title: "mindistance Parameters"}]
+  - ["mindistance.index0","i",50,{title: "mindistance index0 "}]
+  - ["mindistance.index1","i",50,{title: "mindistance index1 "}]
+  - ["mindistance.index2","i",50,{title: "mindistance index2 "}]
+  - ["mindistance.index3","i",50,{title: "mindistance index3 "}]
+  - ["mindistance.index4","i",50,{title: "mindistance index4 "}]
+  - ["mindistance.index5","i",50,{title: "mindistance index5 "}]
+  - ["mindistance.index6","i",50,{title: "mindistance index6 "}]
+  - ["mindistance.index7","i",50,{title: "mindistance index7 "}]
+  - ["mindistance.index8","i",50,{title: "mindistance index8 "}]
+  - ["mindistance.index9","i",50,{title: "mindistance index9 "}]
+  - ["mindistance.index10","i",50,{title: "mindistance index10 "}]
+  - ["mindistance.index11","i",50,{title: "mindistance index11 "}]
+  - ["mindistance.index12","i",50,{title: "mindistance index12 "}]
+  - ["mindistance.index13","i",50,{title: "mindistance index13 "}]
+  - ["mindistance.index14","i",50,{title: "mindistance index14 "}]
+  - ["mindistance.index15","i",50,{title: "mindistance index15 "}]
+
+# These settings get compiled into the C structure, and can be accessed
+# from the C code this way:
+#
+# printf("Hello from %s!\n", mgos_sys_config_get_device_id());
+#
+# Settings are cool: can be modified remotely without full firmware upgrade!
+#
+# To see all available compiled settings, buid the firmware and open
+# build/gen/mgos_config.h file.
+#
+# Also, in this config_schema section, you can override existing
+# settings that has been created by other libraries. For example, debug log
+# level is 2 by default. For this firmware we can override it to 3:
+#
+# config_schema:
+#  - ["debug.level", 3]
+
+libs:
+  - origin: https://github.com/mongoose-os-libs/boards
+  - origin: https://github.com/mongoose-os-libs/rpc-service-config
+  - origin: https://github.com/mongoose-os-libs/rpc-service-fs
+  - origin: https://github.com/mongoose-os-libs/rpc-uart
+  - origin: https://github.com/mongoose-os-libs/rpc-common
+  - origin: https://github.com/mongoose-os-libs/i2c
+  - origin: https://github.com/mongoose-os-libs/wifi
+  - origin: https://github.com/mongoose-os-libs/mqtt
+  - origin: https://github.com/mongoose-os-libs/sntp
+  - origin: https://github.com/mongoose-os-libs/http-server
+  - origin: https://github.com/mongoose-os-libs/ota-http-server
+  - origin: https://github.com/mongoose-os-libs/vfs-common
+  - origin: https://github.com/mongoose-os-libs/pwm
+  - origin: https://github.com/mongoose-os-libs/ethernet
+  - origin: https://github.com/mongoose-os-libs/rpc-service-i2c
+  - origin: https://github.com/mongoose-os-libs/cron
+
+# Used by the mos tool to catch mos binaries incompatible with this file format
+manifest_version: 2017-09-29

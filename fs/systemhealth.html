@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DWPC: health</title>
+
+     <!-- MDB -->
+  <link href="./mdb.min.css" rel="stylesheet"/>
+   
+    <link     rel="stylesheet" href="systemhealth.css"/>
+    <link     rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary"> </nav>
+
+    <div class=" container mt-4 mb-4 pb-1 admin-container" id="systemHealth-page" >
+    
+  <div class="systemHealthPage">
+    <div class="system-calls">
+      <ul>
+        <li><a href="#" onclick="executeCommandGetInfo()">Sys.GetInfo</a></li>
+        <!-- <li><a href="#" onclick="executeCommand('')">Sys.GetMemInfo</a></li>
+        <li><a href="#" onclick="executeCommand('')">Sys.GetUptime</a></li>
+        <li><a href="#" onclick="executeCommand('')">Sys.GetFreeHeap</a></li>
+        <li><a href="#" onclick="executeCommand('')">Sys.GetTaskList</a></li>
+        <li><a href="#" onclick="executeCommand('')">Sys.GetCoreDump</a></li>
+        <li><a href="#" onclick="executeCommand('')">Sys.GetFsInfo</a></li>
+        <li><a href="#" onclick="executeCommand('')">Sys.GetTaskState</a></li>
+        <li><a href="#" onclick="executeCommand('')">Sys.GetMinFreeHeap</a></li>
+        <li><a href="#" onclick="executeCommand('')">Sys.GetSdkVersion</a></li>
+        <li><a href="#" onclick="executeCommand('')">Sys.Reboot</a></li> -->
+        <li><a href="#" onclick="executeCommandSetDebug()">Sys.SetDebug</a></li>
+
+        <!-- Add more system calls as needed -->
+      </ul>
+    </div>
+    <div class="terminal" id="terminal">
+      <div class="terminal-output">
+        <!-- Command output will be appended here dynamically -->
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+    <footer id="footer"> </footer>
+
+    <script defer src="./systemhealth.js"></script>
+      <script type="module">
+        import {Navbar} from './navbar.js';
+        let navbar=document.querySelector('.navbar');
+        navbar.innerHTML =Navbar()
+  
+        
+    import {Footer} from './footer.js';
+    let footer=document.getElementById('footer');
+    footer.innerHTML = Footer()
+        </script>
+  
+  <script defer src="./userRole.js"></script>
+  <script defer src="./logout.js"></script>
+</body>
+</html>

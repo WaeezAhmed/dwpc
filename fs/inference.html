@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DWPC: Inference </title>
+    
+
+
+  <link href="./mdb.min.css" rel="stylesheet"/>
+
+  
+  <link     rel="stylesheet" href="inference.css"  />
+  <link     rel="stylesheet" href="style.css"  />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary"> </nav>
+    <div class="container mt-4 mb-4 pb-1 admin-container" id="inference-page">
+       
+        <div class="text-center pt-5 pb-4 ms-3 me-3 fst-italic opacity-99 sub-heading">
+           Input parameters for adjusting sensitivity and field of view for optimal 
+           performance during people counting, and periodic interval for setting data reporting frequency. It should be configured by the trained expert engineer after the sensor is being installed at desired location.
+        </div>
+
+        <div class="row mt-3 mb-5 me-2 ms-2 p-2">
+ 
+          
+            <form action="" id="inference-form">
+
+
+                <div class="row mb-3"> 
+                    <p class="text-primary"> DWPC Configuration </p>
+                    
+                    <p class="text-primary">Algorithm</p>
+            
+                <div class="col-md-6 ">
+                    <p> Aggregation Interval (sec) </p>
+                <div class="form">
+                    <input type="number" id="aggregation-interval" class="form-control form-control-sm"  value="" placeholder="Enter aggregation interval"/>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+  
+                  <p>Periodic Reset Interval (min (10m-3hr or 0)) </p>
+                <div class="form">
+                  <input type="number" id="periodic-reset-interval" class="form-control form-control-sm" placeholder= "Enter Periodic Reset Interval"/>
+             
+                </div>
+              </div>
+          
+
+            
+            </div>
+
+            <div class="row mb-3"> 
+            
+                <div class="col-md-6">
+        
+                  <p>Room Capacity (integer 1-10 or else)</p>
+              <div class="form">
+                  <input type="number" id="room-capacity" class="form-control form-control-sm" placeholder="Enter Room Capacity"/>
+            
+                </div>
+              </div>
+
+              <div class="col-md-6">
+      
+                <p>Min consecutive sample count (0-255)</p>
+              <div class="form">
+                <input type="number" id="min-consecutive-count" class="form-control form-control-sm" placeholder="Enter min consecutive count"/>
+        
+              </div>
+            </div> 
+               
+      
+            </div>
+                
+            <div class="row mb-3"> 
+
+                <div class="col-md-6">
+    
+                  <p> Partial movement (0-disable 1-enable)</p>
+         
+              <div>
+               
+          
+             <select id="enter-or-exit-middle" class="w-50 p-1">
+              <option value="">Select</option>
+              <option value="0">Disable</option>
+              <option value="1">Enable</option>
+            </select>
+                </div>
+            
+              </div>
+
+              <div class="col-md-6">
+    
+                <p> Direction</p>
+       
+            <div>
+             
+        
+           <select id="direction-ent-ext" class="w-50 p-1">
+            <option value="">Select</option>
+            <option value="0">Default</option>
+            <option value="1">Change</option>
+          </select>
+              </div>
+          
+            </div>
+      
+             
+            </div>
+
+                 <div class="row mb-3"> 
+
+                <div class="col-md-6">
+    
+                  <p> Low confidence detection (0-disable 1-enable)</p>
+         
+              <div>
+               
+          
+             <select id="low-conf-det" class="w-50 p-1">
+              <option value="">Select</option>
+              <option value="0">Disable</option>
+              <option value="1">Enable</option>
+            </select>
+                </div>
+            
+              </div>
+
+              <div class="col-md-6">
+    
+                <p> Person count threshold (0-disable 1-enable)</p>
+       
+            <div>
+             
+        
+           <select id="per-count-thres" class="w-50 p-1">
+            <option value="">Select</option>
+            <option value="0">Disable</option>
+            <option value="1">Enable</option>
+          </select>
+              </div>
+          
+            </div>
+
+      
+  
+            </div>
+
+
+
+            <div class="row mb-3"> 
+
+              <p class="text-primary">Sensor Configuration</p>
+     <div class="col-md-6">
+         
+                    <p> Measurement (Sensor) Frequency (Hz)</p>
+                  <div class="form">
+                    <input type="number" id="measurement-frequency" class="form-control form-control-sm" placeholder="Enter Measurement Frequency"/>
+
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+          
+                  <p>SuperDirection (0:Default,1:IN,2:OUT) </p>
+              <div class="form">
+                  <input type="number" id="resolution" class="form-control form-control-sm" placeholder="Enter Resolution"/>
+            
+                </div>
+              </div>
+         
+      
+             
+            </div>
+
+            <div class="row mb-3"> 
+
+              <div class="col-md-6">
+              
+                <p>Number of Target Per Zone (integer 1-4) </p>
+              <div class="form">
+                <input type="number" id="number-of-target-per-zone" class="form-control form-control-sm" placeholder="Enter Number of Target Per Zone"/>
+
+              </div>
+            </div> 
+
+      
+             
+           
+      
+            
+            </div>
+            <div class="row mb-3"> 
+     
+
+              <div class="col-md-6">
+              
+                <p>Min signal valid target(integer) </p>
+              <div class="form">
+                <input type="number" id="min-signal" class="form-control form-control-sm" placeholder="Enter min signal"/>
+          
+              </div>
+            </div> 
+
+          
+         
+            
+            
+            <div class="col-md-6">
+            
+              <p> Threshold offset (mm) </p>
+          <div class="form">
+              <input type="number" id="threshold" class="form-control form-control-sm" placeholder="Enter threshold"/>
+          
+            </div>
+          </div>
+          </div>
+
+          <div class="row mb-3"> 
+   
+            <p class="text-primary"> Calibration - Th </p>
+            <div class="col-md-6 ">
+
+              <p>Minimum Floor Distance (mm) </p>
+            <div class="form">
+              <input type="number" id="minimum-floor-distance" class="form-control form-control-sm" placeholder="Enter Minimum Floor Distance"/>
+        
+            </div>
+          </div> 
+
+          <div class="col-md-6">
+       
+            <p>Maximum Distance Delta (mm) </p>
+        <div class="form">
+            <input type="number" id="maximum-distance-delta" class="form-control form-control-sm" placeholder= "Enter Maximum Floor Distance "/>
+   
+          </div>
+        </div>
+        
+  
+        
+        </div>
+
+        <div class="row mb-3"> 
+       
+
+     
+        
+             <div class="col-md-6">
+
+                <p>Total sample for Threshold calbration(integer) </p>
+            <div class="form">
+                <input type="number" id="total-samples-calibration" class="form-control form-control-sm" placeholder="Enter Total Samples for Range Calibration"/>
+          
+              </div>
+            </div> 
+            
+            <div class="col-md-6">
+       
+              <p>Valid sample for Threshold calbration (integer) </p>
+            <div class="form">
+              <input type="number" id="valid-samples-range-calibration" class="form-control form-control-sm" placeholder="Enter Valid Samples for Range Calibration"/>
+
+            </div>
+          </div> 
+      </div>
+
+
+    <div class="row mb-3"> 
+      <p class="text-primary">      Calibration - xT </p>
+
+  
+
+    <!-- <div class="col-md-6">
+      <p>Reserve (mm) </p>
+  <div class="form">
+      <input type="number" id="reserve-mode" class="form-control form-control-sm" placeholder="Enter reserve"/>
+
+    </div>
+  </div> -->
+
+
+       <div class="col-md-6">
+                 <p>Reflectivity -xTalk (%) </p>
+                <div class="form">
+                    <input type="number" id="refectivity-xTalk" class="form-control form-control-sm" placeholder="Enter Relectivity -xTalk"/>
+              
+                  </div>
+                </div> 
+              
+      
+  
+
+  </div>
+  <div class="row mb-3"> 
+       
+   <div class="col-md-6">
+   
+                    <p>Sample Count -xTalk (integer 1-16)</p>
+                  <div class="form">
+                    <input type="number" id="sample-count-xTalk" class="form-control form-control-sm" placeholder="Enter Sample Count -xTalk"/>
+
+                  </div>
+                </div>
+
+                     
+                <div class="col-md-6">
+          
+                  <p>Target Distance -xTalk (mm) </p>
+                <div class="form">
+                  <input type="number" id="target-distance-xTalk" class="form-control form-control-sm" placeholder="Enter Target Distance -xTalk"/>
+
+                </div>
+              </div>
+
+      
+</div>
+
+<div class="row mb-3"> 
+       
+
+
+  
+     
+</div>
+
+                <div style="display:flex; justify-content:flex-end">
+                    <button type="submit" class="btn bg-transparent bg-gradient text-primary border-margin">SAVE</button>
+                    <!-- <button type="button" id="inference-apply-button" class="btn bg-transparent bg-gradient text-primary border-margin">APPLY</button> -->
+                    </div>
+              
+
+            </form>
+      
+     
+        </div>
+     
+        </div>
+
+
+    
+  <footer id="footer"> </footer>
+
+  <script defer src="./inference.js"></script>
+    <script type="module">
+      import {Navbar} from './navbar.js';
+      let navbar=document.querySelector('.navbar');
+      navbar.innerHTML =Navbar()
+
+      
+  import {Footer} from './footer.js';
+  let footer=document.getElementById('footer');
+  footer.innerHTML = Footer()
+      </script>
+
+<script defer src="./userRole.js"></script>
+<script defer src="./logout.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script> -->
+</body>
+</html>

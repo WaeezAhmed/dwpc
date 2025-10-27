@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DWPC: inference2</title>
+  <!-- MDB -->
+  <link href="./mdb.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="inference2.css" />
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary "> </nav>
+
+
+
+  <div class="container pt-5 mt-5 pb-5 mb-4 pb-1">
+
+    <h3 class="dashboard_heading"> Field of View Visualizer</h3>
+
+
+    <div class="admin-container-container row mt-3 mb-5 me-2 ms-2 ps-5 pe-5 pt-2 pb-2">
+
+      <form action="" id="zoneImportance">
+        <div class="row mb-3">
+          <p class="text-primary"> Zone Importance (Needed, Discard, Optional) </p>
+          <div class="col-md-3">
+            <label for="select12">Index 12:</label>
+
+            <select id="select12">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+
+            <label for="select8">Index 08:</label>
+            <select id="select8">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label for="select4">Index 04:</label>
+
+            <select id="select4">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label for="select0">Index 00:</label>
+
+            <select id="select0">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <label for="select13">Index 13:</label>
+
+            <select id="select13">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+
+            <label for="select9">Index 09:</label>
+            <select id="select9">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label for="select5">Index 05:</label>
+
+            <select id="select5">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label for="select1">Index 01:</label>
+
+            <select id="select1">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+
+          <div class="col-md-3">
+            <label for="select14">Index 14:</label>
+
+            <select id="select14">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+
+            <label for="select10">Index 10:</label>
+            <select id="select10">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label for="select6">Index 06:</label>
+
+            <select id="select6">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label for="select2">Index 02:</label>
+
+            <select id="select2">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <label for="select15">Index 15:</label>
+
+            <select id="select15">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+
+            <label for="select11">Index 11:</label>
+            <select id="select11">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label for="select7">Index 07:</label>
+
+            <select id="select7">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label for="select3">Index 03:</label>
+
+            <select id="select3">
+              <option value="">Select</option>
+              <option value="2">Needed</option>
+              <option value="3">Discard</option>
+              <option value="1">Optional</option>
+            </select>
+          </div>
+        </div>
+
+
+
+
+
+
+
+        <div style="display:flex; justify-content:flex-end">
+          <button type="submit" class="btn bg-transparent bg-gradient text-primary border-margin">SAVE</button>
+
+        </div>
+
+
+
+
+
+      </form>
+
+
+
+      <form action="" id="zoneDirection">
+        <div class="row mb-3">
+          <p class="text-primary"> Zone Direction (Inner, Outer) </p>
+          <div class="col-md-3">
+            <label for="zoneDir12">Index 12:</label>
+
+            <select id="zoneDir12">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+
+            <label for="zoneDir8">Index 08:</label>
+            <select id="zoneDir8">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label for="zoneDir4">Index 04:</label>
+
+            <select id="zoneDir4">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+
+            <label for="zoneDir0">Index 00:</label>
+            <select id="zoneDir0">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+        </div>
+
+
+
+        <div class="row mb-3">
+
+          <div class="col-md-3">
+            <label for="zoneDir13">Index 13:</label>
+
+            <select id="zoneDir13">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+
+            <label for="zoneDir9">Index 09:</label>
+            <select id="zoneDir9">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label for="zoneDir5">Index 05:</label>
+
+            <select id="zoneDir5">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+
+            <label for="zoneDir1">Index 01:</label>
+            <select id="zoneDir1">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+
+          <div class="col-md-3">
+            <label for="zoneDir14">Index 14:</label>
+
+            <select id="zoneDir14">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+
+            <label for="zoneDir10">Index 10:</label>
+            <select id="zoneDir10">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label for="zoneDir6">Index 06:</label>
+
+            <select id="zoneDir6">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+
+            <label for="zoneDir2">Index 02:</label>
+            <select id="zoneDir2">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+
+          <div class="col-md-3">
+            <label for="zoneDir15">Index 15:</label>
+
+            <select id="zoneDir15">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+
+            <label for="zoneDir11">Index 11:</label>
+            <select id="zoneDir11">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label for="zoneDir7">Index 07:</label>
+
+            <select id="zoneDir7">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+
+            <label for="zoneDir3">Index 03:</label>
+            <select id="zoneDir3">
+              <option value="">Select</option>
+              <option value="3">Inner</option>
+              <option value="1">Outer</option>
+            </select>
+          </div>
+        </div>
+
+
+
+
+        <div style="display:flex; justify-content:flex-end">
+          <button type="submit" class="btn bg-transparent bg-gradient text-primary border-margin">SAVE</button>
+
+        </div>
+
+
+
+
+      </form>
+
+
+
+
+
+      <form action="" id="distancethreshold-form">
+        <p class="text-primary"> Distance Threshold </p>
+
+
+        <div class="row mb-3">
+
+          <div class="col-md-3">
+            <span> Index 12 </span>
+            <span class="form">
+              <input type="number" id="index12" class="form-control form-control-sm" value=""
+                placeholder="Enter index-12" />
+
+            </span>
+          </div>
+
+
+
+          <div class="col-md-3">
+            <span> Index 08 </span>
+            <span class="form">
+              <input type="number" id="index8" class="form-control form-control-sm" value=""
+                placeholder="Enter index-8" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 04 </span>
+            <span class="form">
+              <input type="number" id="index4" class="form-control form-control-sm" value=""
+                placeholder="Enter index-4" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 00 </span>
+            <span class="form">
+              <input type="number" id="index0" class="form-control form-control-sm" value=""
+                placeholder="Enter inex-0" />
+
+            </span>
+          </div>
+
+
+
+        </div>
+
+
+        <div class="row mb-3">
+
+          <div class="col-md-3">
+            <span> Index 13 </span>
+            <span class="form">
+              <input type="number" id="index13" class="form-control form-control-sm" value=""
+                placeholder="Enter index-13" />
+
+            </span>
+          </div>
+
+
+
+          <div class="col-md-3">
+            <span> Index 09 </span>
+            <span class="form">
+              <input type="number" id="index9" class="form-control form-control-sm" value=""
+                placeholder="Enter index-9" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 05 </span>
+            <span class="form">
+              <input type="number" id="index5" class="form-control form-control-sm" value=""
+                placeholder="Enter index-5" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 01 </span>
+            <span class="form">
+              <input type="number" id="index1" class="form-control form-control-sm" value=""
+                placeholder="Enter index-1" />
+
+            </span>
+          </div>
+
+
+
+        </div>
+
+        <div class="row mb-3">
+
+          <div class="col-md-3">
+            <span> Index 14 </span>
+            <span class="form">
+              <input type="number" id="index14" class="form-control form-control-sm" value=""
+                placeholder="Enter index-14" />
+
+            </span>
+          </div>
+
+
+
+          <div class="col-md-3">
+            <span> Index 10 </span>
+            <span class="form">
+              <input type="number" id="index10" class="form-control form-control-sm" value=""
+                placeholder="Enter index-10" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 06 </span>
+            <span class="form">
+              <input type="number" id="index6" class="form-control form-control-sm" value=""
+                placeholder="Enter index-4" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 02 </span>
+            <span class="form">
+              <input type="number" id="index2" class="form-control form-control-sm" value=""
+                placeholder="Enter inex-02" />
+
+            </span>
+          </div>
+
+
+
+        </div>
+
+        <div class="row mb-3">
+
+          <div class="col-md-3">
+            <span> Index 15 </span>
+            <span class="form">
+              <input type="number" id="index15" class="form-control form-control-sm" value=""
+                placeholder="Enter index-15" />
+
+            </span>
+          </div>
+
+
+
+          <div class="col-md-3">
+            <span> Index 11 </span>
+            <span class="form">
+              <input type="number" id="index11" class="form-control form-control-sm" value=""
+                placeholder="Enter index-11" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 07 </span>
+            <span class="form">
+              <input type="number" id="index7" class="form-control form-control-sm" value=""
+                placeholder="Enter index-07" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 03 </span>
+            <span class="form">
+              <input type="number" id="index3" class="form-control form-control-sm" value=""
+                placeholder="Enter inex-03" />
+
+            </span>
+          </div>
+
+
+
+        </div>
+
+        <div style="display:flex; justify-content:flex-end">
+          <button type="submit" class="btn bg-transparent bg-gradient text-primary border-margin">SAVE</button>
+
+        </div>
+
+
+      </form>
+
+
+      <!-- </div> -->
+
+
+      <form action="" id="minDistance-form">
+        <p class="text-primary"> Minimum Distance </p>
+
+
+        <div class="row mb-3">
+
+          <div class="col-md-3">
+            <span> Index 12 </span>
+            <span class="form">
+              <input type="number" id="minDis12" class="form-control form-control-sm" value=""
+                placeholder="Enter index-12" />
+
+            </span>
+          </div>
+
+
+
+          <div class="col-md-3">
+            <span> Index 08 </span>
+            <span class="form">
+              <input type="number" id="minDis8" class="form-control form-control-sm" value=""
+                placeholder="Enter index-8" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 04 </span>
+            <span class="form">
+              <input type="number" id="minDis4" class="form-control form-control-sm" value=""
+                placeholder="Enter index-4" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 00 </span>
+            <span class="form">
+              <input type="number" id="minDis0" class="form-control form-control-sm" value=""
+                placeholder="Enter inex-0" />
+
+            </span>
+          </div>
+
+
+
+        </div>
+
+
+        <div class="row mb-3">
+
+          <div class="col-md-3">
+            <span> Index 13 </span>
+            <span class="form">
+              <input type="number" id="minDis13" class="form-control form-control-sm" value=""
+                placeholder="Enter index-13" />
+
+            </span>
+          </div>
+
+
+
+          <div class="col-md-3">
+            <span> Index 09 </span>
+            <span class="form">
+              <input type="number" id="minDis9" class="form-control form-control-sm" value=""
+                placeholder="Enter index-9" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 05 </span>
+            <span class="form">
+              <input type="number" id="minDis5" class="form-control form-control-sm" value=""
+                placeholder="Enter index-5" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 01 </span>
+            <span class="form">
+              <input type="number" id="minDis1" class="form-control form-control-sm" value=""
+                placeholder="Enter index-1" />
+
+            </span>
+          </div>
+
+
+
+        </div>
+
+        <div class="row mb-3">
+
+          <div class="col-md-3">
+            <span> Index 14 </span>
+            <span class="form">
+              <input type="number" id="minDis14" class="form-control form-control-sm" value=""
+                placeholder="Enter index-14" />
+
+            </span>
+          </div>
+
+
+
+          <div class="col-md-3">
+            <span> Index 10 </span>
+            <span class="form">
+              <input type="number" id="minDis10" class="form-control form-control-sm" value=""
+                placeholder="Enter index-10" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 06 </span>
+            <span class="form">
+              <input type="number" id="minDis6" class="form-control form-control-sm" value=""
+                placeholder="Enter index-4" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 02 </span>
+            <span class="form">
+              <input type="number" id="minDis2" class="form-control form-control-sm" value=""
+                placeholder="Enter inex-02" />
+
+            </span>
+          </div>
+
+
+
+        </div>
+
+        <div class="row mb-3">
+
+          <div class="col-md-3">
+            <span> Index 15 </span>
+            <span class="form">
+              <input type="number" id="minDis15" class="form-control form-control-sm" value=""
+                placeholder="Enter index-15" />
+
+            </span>
+          </div>
+
+
+
+          <div class="col-md-3">
+            <span> Index 11 </span>
+            <span class="form">
+              <input type="number" id="minDis11" class="form-control form-control-sm" value=""
+                placeholder="Enter index-11" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 07 </span>
+            <span class="form">
+              <input type="number" id="minDis7" class="form-control form-control-sm" value=""
+                placeholder="Enter index-07" />
+
+            </span>
+          </div>
+
+          <div class="col-md-3">
+            <span> Index 03 </span>
+            <span class="form">
+              <input type="number" id="minDis3" class="form-control form-control-sm" value=""
+                placeholder="Enter inex-03" />
+
+            </span>
+          </div>
+
+
+
+        </div>
+
+        <div style="display:flex; justify-content:flex-end">
+          <button type="submit" class="btn bg-transparent bg-gradient text-primary border-margin">SAVE</button>
+
+        </div>
+
+
+      </form>
+
+    </div>
+
+
+
+    <div class="admin-container pt-5 mt-5 pb-5 mb-4 pb-1">
+
+
+      <img class="dashboard_image" src="./dashboard_range.png" alt="">
+      <!-- <div class="grid-container display_none"></div>
+        <div class="grid-container display_none"></div> -->
+      <div class="grid-container2 display_none"></div>
+      <!-- <div class="grid-container1 display_none"></div> -->
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+  <footer id="footer"> </footer>
+
+
+  <script type="module">
+
+    import { Navbar } from './navbar.js';
+    let navbar = document.querySelector('.navbar');
+    navbar.innerHTML = Navbar()
+
+
+    import { Footer } from './footer.js';
+    let footer = document.getElementById('footer');
+    footer.innerHTML = Footer()
+  </script>
+  <script src="inference2.js"></script>
+  <script defer src="./userRole.js"></script>
+  <script defer src="./logout.js"></script>
+  <!-- <script defer src="../Components/userRole.js"></script>
+      <script defer src="../Components/logout.js"></script> -->
+</body>
+
+</html>
