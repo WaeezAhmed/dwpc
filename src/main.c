@@ -210,9 +210,65 @@ enum mgos_app_init_result mgos_app_init(void)
 	}
 	//############### ADDED BY JYOTI ###############################
 
+	// Display network configuration at startup
+	printf("\n========================================\n");
+	printf("DWPC Network Configuration\n");
+	printf("========================================\n");
+	printf("Device MAC: %s\n", base_mac);
+	printf("WiFi STA: %s\n", is_wifi_enabled ? "ENABLED" : "DISABLED");
+	if (is_wifi_enabled)
+	{
+		printf("  SSID: %s\n", mgos_sys_config_get_wifi_sta_ssid());
+	}
+	printf("Ethernet: %s\n", mgos_sys_config_get_eth_enable() ? "ENABLED" : "DISABLED");
+	if (mgos_sys_config_get_eth_enable())
+	{
+		printf("  Static IP: %s\n", mgos_sys_config_get_eth_ip());
+		printf("  Netmask: %s\n", mgos_sys_config_get_eth_netmask());
+		printf("  Gateway: %s\n", mgos_sys_config_get_eth_gw());
+		printf("  STP Delay: %d seconds\n", mgos_sys_config_get_eth_startup_delay());
+	}
+	printf("MQTT Server: %s\n", mgos_sys_config_get_mqtt_server());
+	printf("Firmware: %s\n", mgos_sys_config_get_admin_version());
+	printf("========================================\n\n");
+
 	/*Clock streching*/
 	// i2c_set_timeout(i2c_master_port, 12500 * 10);
 	mgos_msleep(2000);
+
+	// Enterprise network STP startup delay
+	// Wait for enterprise switch Spanning Tree Protocol to enable port
+	// This prevents initialization failures on enterprise networks
+	int eth_startup_delay = mgos_sys_config_get_eth_startup_delay();
+	bool is_eth_enabled = mgos_sys_config_get_eth_enable();
+
+	if (is_eth_enabled && eth_startup_delay > 0)
+	{
+		printf("========================================\n");
+		printf("Enterprise Network Mode: Waiting %d seconds for switch port to come online (STP)\n", eth_startup_delay);
+		printf("Static IP: %s\n", mgos_sys_config_get_eth_ip());
+		printf("Gateway: %s\n", mgos_sys_config_get_eth_gw());
+		printf("This delay prevents boot loops on enterprise switches running Spanning Tree Protocol\n");
+		printf("========================================\n");
+
+		// Wait in 5-second increments to show progress
+		for (int i = 0; i < eth_startup_delay; i += 5)
+		{
+			int remaining = eth_startup_delay - i;
+			if (remaining >= 5)
+			{
+				printf("Waiting for network... %d seconds remaining\n", remaining);
+				mgos_msleep(5000);
+			}
+			else
+			{
+				printf("Waiting for network... %d seconds remaining\n", remaining);
+				mgos_msleep(remaining * 1000);
+			}
+		}
+		printf("Network wait complete. Proceeding with initialization.\n");
+	}
+
 	uint8_t vlStatus;
 
 	/*Initialize ESP32 NVS*/
@@ -751,38 +807,76 @@ static void periodicResetCount(void *arg)
 	dwpcData.ledColour = WHITE;
 
 	bool is_wifi_enabled = mgos_sys_config_get_wifi_sta_enable();
-	if (is_wifi_enabled)
-	{	
-		printf("Wi-Fi is enabled , plz check for wifi connection staus");
+	bool is_eth_enabled = mgos_sys_config_get_eth_enable();
+
+	// CRITICAL FIX: Only restart on WiFi failure if Ethernet is NOT enabled
+	// This prevents restart loops when using Ethernet with static IP
+	if (is_wifi_enabled && !is_eth_enabled)
+	{
+		// WiFi is the PRIMARY interface - enforce connectivity
+		printf("Wi-Fi is primary interface, checking connection status\n");
 		int wifi_connection_status = mgos_wifi_get_status();
 		if (wifi_connection_status == 3)
 		{
-		printf("\n wifi connection status : MGOS_WIFI_EV_STA_CONNECTED");
-		wifi_connection_status_counter = 0;
+			printf("WiFi connection status: MGOS_WIFI_EV_STA_CONNECTED\n");
+			wifi_connection_status_counter = 0;
 		}
-		else 
+		else
 		{
-		printf("\n wifi connection status : %d",wifi_connection_status);
-		mgos_wifi_connect();
-		wifi_connection_status_counter++;
-
+			printf("WiFi connection status: %d (not connected)\n", wifi_connection_status);
+			mgos_wifi_connect();
+			wifi_connection_status_counter++;
 		}
-		printf("\n wifi_connection_status_counter: %d", wifi_connection_status_counter); 
+		printf("WiFi connection status counter: %d\n", wifi_connection_status_counter);
+
 		if (wifi_connection_status_counter > 2)
 		{
-		printf("\n mgos_system_restart "); 
-		mgos_system_restart();
+			printf("WiFi failed 3 times, restarting system\n");
+			mgos_system_restart();
 		}
 	}
-	else 
+	else if (is_wifi_enabled && is_eth_enabled)
 	{
-	printf("Wi-Fi is disabled,so no need to check wifi connection staus");
+		// WiFi is SECONDARY interface - don't restart on WiFi failure
+		printf("WiFi is secondary interface (Ethernet enabled), not enforcing WiFi connection\n");
+		int wifi_connection_status = mgos_wifi_get_status();
+		if (wifi_connection_status != 3)
+		{
+			printf("WiFi not connected (status: %d), but Ethernet is primary - continuing\n", wifi_connection_status);
+			// Optionally try to reconnect WiFi, but don't restart
+			mgos_wifi_connect();
+		}
+	}
+	else if (!is_wifi_enabled && is_eth_enabled)
+	{
+		// Ethernet ONLY mode
+		printf("Ethernet-only mode: WiFi disabled, no WiFi connection check\n");
+	}
+	else
+	{
+		printf("WiFi is disabled, so no need to check WiFi connection status\n");
 	}
 
+	// Network diagnostics for Ethernet
+	if (is_eth_enabled)
+	{
+		const char *eth_ip = mgos_sys_config_get_eth_ip();
+		const char *eth_gw = mgos_sys_config_get_eth_gw();
+		const char *eth_netmask = mgos_sys_config_get_eth_netmask();
+
+		printf("=== Ethernet Network Status ===\n");
+		printf("Ethernet enabled: true\n");
+		printf("Static IP: %s\n", eth_ip ? eth_ip : "not configured");
+		printf("Netmask: %s\n", eth_netmask ? eth_netmask : "not configured");
+		printf("Gateway: %s\n", eth_gw ? eth_gw : "not configured");
+		printf("Device uptime: %d seconds\n", (int)mgos_uptime());
+		printf("================================\n");
+	}
 
 	if (mgos_mqtt_global_is_connected())
 	{
 		mgos_sys_config_set_mqtt_status("Connected");
+		printf("MQTT Status: Connected to %s\n", mgos_sys_config_get_mqtt_server());
 
 		maintime = time(0);
 		epochTime = (uint64_t)time(&maintime);
@@ -792,14 +886,18 @@ static void periodicResetCount(void *arg)
 		int heap_utilization = mgos_get_heap_size() - mgos_get_free_heap_size();
 		int max_heap_utilization = mgos_get_min_free_heap_size();
 		uint8_t flash_utilization = get_flash_utilization_percentage();
+		printf("Publishing device health: Uptime=%d days, Heap=%d bytes, Flash=%d%%\n",
+		       device_uptime_days, heap_utilization, flash_utilization);
 		//mgos_mqtt_pubf(mgos_sys_config_get_mqtt_device_health(), 0, false, "{DeviceVersion:\"%s\",Data:PeriodicReset,Time: %llu, Incount: %d, Outcount: %d, Absolute:%d, PktId:32, DeviceType:32, MAC:%Q, BuzzerState:%Q, LedColour:%Q}", mgos_sys_config_get_admin_version(), epochTime, dwpcData.inCount, dwpcData.outCount, dwpcData.PeopleCount, base_mac, buzzState, ledColour);
         mgos_mqtt_pubf(mgos_sys_config_get_mqtt_device_health(), 0, false, "{DeviceVersion: \"%s\",DeviceType: %d, SensorType: %d, EventType: %d, TimeStamp: %llu, Time: %llu, FunctionMode: %d, PacketCounterHealth: %d, UptimeDays: %d, SensorStatus: %d, HeapUtilization: %d, MaxHeapUtilization: %d, FilesystemUtilization: %d, MAC: %Q}", mgos_sys_config_get_admin_version(), device_type_legacy_dwpc, sensor_type_dwpc, event_type_device_health, epochTime, epochTime, function_mode_periodic, packet_counter_health, device_uptime_days, sensor_status_tof, heap_utilization, max_heap_utilization, flash_utilization, base_mac);
 	}
 	else
 	{
 		packet_counter_health++;
+		printf("MQTT Status: Not Connected - attempting to reconnect to %s\n", mgos_sys_config_get_mqtt_server());
 		mgos_mqtt_global_connect(); // This function will force immediate connection attempt if disconnected from broker
 		mgos_sys_config_set_mqtt_status("Not Connected");
+		printf("MQTT reconnection attempt initiated\n");
 	}
 	if (dwpcData.PeopleCount > 0) // More In detected
 	{
